@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 typedef int Element;
 
@@ -10,6 +11,8 @@ void insertionSort(Element E[], int first, int last);
 void swap(Element i[], Element j[]);
 
 void main() {
+	clock_t CPU_start, CPU_end;
+	double CPU_time;
 	int input;
 	Element elements[] = { 90, 25, 10, 71, 94, 22, 59, 74 };
 
@@ -21,6 +24,7 @@ void main() {
 	for (int x = 0; x < 8; x++) { printf("%d ", elements[x]); }
 	printf("\n\n");
 
+	CPU_start = clock();
 	originalMergeSort(elements, 0, 7);
 	printf("Original Merge Sort: \n");
 	for (int x = 0; x < 8; x++) { printf("%d ", elements[x]); }
