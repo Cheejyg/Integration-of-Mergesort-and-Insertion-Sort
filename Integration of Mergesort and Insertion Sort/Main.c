@@ -45,25 +45,25 @@ void mergeSort(Element E[], int first, int last, int S) {
 }
 void merge(Element E[], int first, int mid, int last) {
 	//int mid = (first + last) / 2;
-	int a = first, b = mid + 1, temp;
+	int a = first, b = mid + 1, temp, compare, i;
 	if (last - first <= 0) { return; }
 
 	Element *f, *g;
-	f = malloc(((mid - first) + 1) * sizeof(Element));
-	g = malloc((last - mid) * sizeof(Element));
+	f = malloc(((mid - first) + 1 + 1) * sizeof(Element));
+	g = malloc(((last - mid) + 1) * sizeof(Element));
 	memcpy(f, &E[first], (mid - first + 1) * sizeof(Element));
 	memcpy(g, &E[mid + 1], (last - mid) * sizeof(Element));
 	f[(mid - first) + 1] = -1;
 	g[(last - mid)] = -1;
 
 	while (a <= mid && b <= last) {
-		int compare = E[a] - E[b];
+		compare = E[a] - E[b];
 		if (compare > 0) {
 			temp = E[b++];
-			for (int i = ++mid; i > a; i--) {
+			for (i = ++mid; i > a; i--) {
 				E[i] = E[i - 1];
 			}
-			E[a] = temp;
+			E[a++] = temp;
 		}
 		else if (compare < 0) {
 			a++;
@@ -72,7 +72,7 @@ void merge(Element E[], int first, int mid, int last) {
 			if (a == mid&&b == last) { break; }
 			temp = E[b++];
 			a++;
-			for (int i = ++mid; i > a; i--) { E[i] = E[i - 1]; }
+			for (i = ++mid; i > a; i--) { E[i] = E[i - 1]; }
 			E[a++] = temp;
 		}
 	}
@@ -80,7 +80,7 @@ void merge(Element E[], int first, int mid, int last) {
 void insertionSort(Element E[], int first, int last) {
 	int n = (last - first) + 1;
 	if (n <= 1) { return; }
-	for (int i = first + 1; i < n; i++) {
+	for (int i = first; i <= last; i++) {
 		for (int j = i; j > 0; j--) {
 			if (E[j] < E[j - 1]) { swap(&E[j], &E[j - 1]); }
 			else { break; }
