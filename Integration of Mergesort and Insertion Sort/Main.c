@@ -2,6 +2,7 @@
 
 typedef int Element;
 
+void originalMergeSort(Element E[], int first, int last);
 void mergeSort(Element E[], int first, int last, int S);
 void merge(Element E[], int first, int mid, int last);
 void insertionSort(Element E[], int first, int last);
@@ -20,6 +21,11 @@ void main() {
 	for (int x = 0; x < 8; x++) { printf("%d ", elements[x]); }
 	printf("\n\n");
 
+	originalMergeSort(elements, 0, 7);
+	printf("Original Merge Sort: \n");
+	for (int x = 0; x < 8; x++) { printf("%d ", elements[x]); }
+	printf("\n\n");
+
 	mergeSort(elements, 0, 7, 1);
 	printf("Merge Sort: \n");
 	for (int x = 0; x < 8; x++) { printf("%d ", elements[x]); }
@@ -33,13 +39,31 @@ void main() {
 	scanf("%s", &input);
 }
 
+void originalMergeSort(Element E[], int first, int last) {
+	int mid = (first + last) / 2;
+	if ((last - first) <= 0) { return; }
+	else if (last - first > 1) {
+		Element *f, *g;
+		f = malloc(((mid - first) + 1 + 1) * sizeof(Element));
+		g = malloc(((last - mid) + 1) * sizeof(Element));
+		memcpy(f, &E[first], (mid - first + 1) * sizeof(Element));
+		memcpy(g, &E[mid + 1], (last - mid) * sizeof(Element));
+		f[(mid - first) + 1] = -1;
+		g[(last - mid)] = -1;
+
+		originalMergeSort(E, first, mid);
+		originalMergeSort(E, mid + 1, last);
+	}
+	merge(E, first, mid, last);
+}
 void mergeSort(Element E[], int first, int last, int S) {
 	if (last - first > S) {
 		int mid = (first + last) / 2;
 		mergeSort(E, first, mid, S);
 		mergeSort(E, mid + 1, last, S);
 		merge(E, first, mid, last);
-	} else {
+	}
+	else {
 		insertionSort(E, first, last);
 	}
 }
