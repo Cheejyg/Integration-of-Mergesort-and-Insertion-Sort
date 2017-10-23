@@ -181,7 +181,7 @@ void merge(Element E[], int first, int mid, int last) {
 	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element)); //for (int x = 0; x < (mid - first + 1); x++) { left[x] = E[x]; }
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
 
-	Element /*left, right, */temp;
+	/*Element left, right, temp;*/
 	int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		/*left = left[indexLeft];
@@ -241,7 +241,7 @@ void modifiedMerge(Element E[], int first, int mid, int last) {
 	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element)); //for (int x = 0; x < (mid - first + 1); x++) { left[x] = E[x]; }
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
 
-	Element /*left, right, */temp;
+	/*Element left, right, temp;*/
 	int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		/*left = left[indexLeft];
