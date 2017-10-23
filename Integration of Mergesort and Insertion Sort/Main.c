@@ -41,7 +41,7 @@ void main() {
 	//duplicate random Elements for sorting
 	randomElements_Copy = malloc(n * sizeof(Element));
 
-	if (n < 512 || 1) {
+	if (n < 512) {
 		printf("\n");
 		printf("Elements = \n{");
 		for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements[x]); if ((x + 1) % 9 == 0) { printf("\n"); } }
