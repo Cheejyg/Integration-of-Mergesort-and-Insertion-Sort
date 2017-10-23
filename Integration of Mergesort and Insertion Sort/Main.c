@@ -23,9 +23,9 @@ void main() {
 
 	LARGE_INTEGER performanceCounter_start, performanceCounter_end, CPU_frequency;
 	QueryPerformanceFrequency(&CPU_frequency);
-	LARGE_INTEGER CPU_time;
+	//LARGE_INTEGER CPU_time;
 	Element /*elements[] = { 90, 25, 10, 71, 94, 22, 59, 74 }, */*randomElements, *randomElements_Copy;
-	int input, n, S;
+	int /*input, */n, S;
 
 	//printfs
 	printf("\n");
@@ -142,7 +142,7 @@ void main() {
 	free(randomElements);
 	//free(randomElements_Copy);
 
-	scanf("%s", &input);
+	scanf("%s", &S);
 }
 
 void mergeSort(Element E[], int first, int last) {
