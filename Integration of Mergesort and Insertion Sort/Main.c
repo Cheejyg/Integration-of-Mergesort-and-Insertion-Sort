@@ -135,10 +135,10 @@ void main() {
 	printf("\n");
 
 	///END
-	printf("\\\END///");
+	printf("=== END ===");
 	printf("\n");
 
-	//free(randomElements_Copy);
+	free(randomElements_Copy);
 	free(randomElements);
 	//free(randomElements_Copy);
 
@@ -193,8 +193,10 @@ void merge(Element E[], int first, int mid, int last) {
 		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
 		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
 	}
-	if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
-	if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
+	while (indexLeft < (mid - first + 1)) { E[index++] = left[indexLeft++]; }
+	while (indexRight < (last - mid)) { E[index++] = right[indexRight++]; }
+	//if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
+	//if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
 	//free(left); free(right);
 }
 /*void inPlaceMerge(Element E[], int first, int mid, int last) {
@@ -251,8 +253,8 @@ void modifiedMerge(Element E[], int first, int mid, int last) {
 		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
 		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
 	}
-	if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
-	if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
+	while (indexLeft < (mid - first + 1)) { E[index++] = left[indexLeft++]; }
+	while (indexRight < (last - mid)) { E[index++] = right[indexRight++]; }
 	//free(left); free(right);
 }
 void insertionSort(Element E[], int first, int last) {

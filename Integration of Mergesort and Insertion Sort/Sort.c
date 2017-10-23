@@ -34,8 +34,8 @@ void merge(Element E[], int first, int mid, int last) {
 		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
 		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
 	}
-	if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
-	if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
+	while (indexLeft < (mid - first + 1)) { E[index++] = left[indexLeft++]; }
+	while (indexRight < (last - mid)) { E[index++] = right[indexRight++]; }
 	//free(left); free(right);
 }
 void swap(Element i[], Element j[]) {
