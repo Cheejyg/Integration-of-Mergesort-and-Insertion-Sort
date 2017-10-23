@@ -47,7 +47,7 @@ void main() {
 
 	//generate n number of random Element[] and copy to Element_Copy[] for sorting and resetting
 	randomElements = malloc(n * sizeof(Element)); for (long long int x = 0; x < n; x++) { randomElements[x] = rand(); }
-	//randomElements_Copy = malloc(n * sizeof(Element));  for (long int int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }; memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
+	//randomElements_Copy = malloc(n * sizeof(Element));  for (long long int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }; memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
 	randomElements_Copy = malloc(n * sizeof(Element)); memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
 	//if n within threshold, print entire array
 	if (n < 512) {
@@ -165,9 +165,9 @@ void main() {
 	scanf("%s", &input);
 }
 
-void mergeSort(Element E[], int first, int last) {
+void mergeSort(Element E[], long long int first, long long int last) {
 	if ((last - first) < 1) { return; }
-	int mid = (first + last) / 2;
+	long long int mid = (first + last) / 2;
 	mergeSort(E, first, mid);
 	mergeSort(E, mid + 1, last);
 	merge(E, first, mid, last);
@@ -194,7 +194,7 @@ void modifiedMergeSort(Element E[], int first, int last, int S) {
 		insertionSort(E, first, last);
 	}
 }
-void merge(Element E[], int first, int mid, int last) {
+void merge(Element E[], long long int first, long long int mid, long long int last) {
 	//Original version of Mergesort
 	if ((last - first) < 1) { return; }
 	Element *left, *right;
@@ -202,7 +202,7 @@ void merge(Element E[], int first, int mid, int last) {
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (long long int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
 
 																													/*Element left, right, temp;*/
-	long long  int compare, index = first, indexLeft = 0, indexRight = 0;
+	long long int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		/*left = left[indexLeft];
 		right = right[indexRight];*/
