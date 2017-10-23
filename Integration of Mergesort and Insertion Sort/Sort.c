@@ -8,17 +8,14 @@
 void mergeSort(Element E[], int first, int last) {
 	int mid = (first + last) / 2;
 	if ((last - first) < 1) { return; }
-	else {
-		mergeSort(E, first, mid);
-		mergeSort(E, mid + 1, last);
-		merge(E, first, mid, last);
-	}
+	mergeSort(E, first, mid);
+	mergeSort(E, mid + 1, last);
+	merge(E, first, mid, last);
 }
 void insertionSort(Element E[], int first, int last) {
 	if ((last - first) < 1) { return; }
-
 	for (int i = (first + 1); i <= last; i++) {
-		for (int j = i; j > 0; j--) {
+		for (int j = i; j > first; j--) {
 			if (E[j] < E[j - 1]) { swap(&E[j], &E[j - 1]); }
 			else { break; }
 		}
@@ -27,7 +24,6 @@ void insertionSort(Element E[], int first, int last) {
 
 void merge(Element E[], int first, int mid, int last) {
 	if ((last - first) < 1) { return; }
-
 	Queue f, g;
 	f.ll.head = NULL; f.ll.tail = NULL; f.ll.size = 0;
 	g.ll.head = NULL; g.ll.tail = NULL; g.ll.size = 0;
@@ -46,5 +42,7 @@ void merge(Element E[], int first, int mid, int last) {
 	while (!isEmptyQueue(&g)) { E[index++] = dequeue(&g); }
 }
 void swap(Element i[], Element j[]) {
-
+	Element k = *i;
+	*i = *j;
+	*j = k;
 }

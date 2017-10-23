@@ -145,13 +145,10 @@
     <ClCompile Include="LinkedList.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="Queue.c" />
-    <ClCompile Include="Stack.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Queue.h" />
-    <ClInclude Include="Sort.h" />
-    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

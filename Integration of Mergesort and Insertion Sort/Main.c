@@ -276,9 +276,8 @@ void modifiedMerge(Element E[], int first, int mid, int last) {
 }
 void insertionSort(Element E[], int first, int last) {
 	if ((last - first) < 1) { return; }
-
 	for (int i = (first + 1); i <= last; i++) {
-		for (int j = i; j > 0; j--) {
+		for (int j = i; j > first; j--) {
 			///comparison
 			comparison++;
 			if (E[j] < E[j - 1]) { swap(&E[j], &E[j - 1]); }
