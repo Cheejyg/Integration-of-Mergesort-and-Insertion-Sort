@@ -1,8 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
-#include "Queue.h"
-#include <time.h>
+#include <windows.h>
 
 typedef int Element;
 
@@ -17,149 +16,141 @@ void modifiedMerge(Element E[], int first, int mid, int last);
 void insertionSort(Element E[], int first, int last);
 void swap(Element i[], Element j[]);
 
+//global
 int comparison;
 
 void main() {
-	clock_t CPU_start, CPU_end;
-	//double CPU_time;
-	Element elements[] = { 90, 25, 10, 71, 94, 22, 59, 74 }, *randomElements, *randomElements_Copy;
+
+	LARGE_INTEGER performanceCounter_start, performanceCounter_end, CPU_frequency;
+	QueryPerformanceFrequency(&CPU_frequency);
+	LARGE_INTEGER CPU_time;
+	Element /*elements[] = { 90, 25, 10, 71, 94, 22, 59, 74 }, */*randomElements, *randomElements_Copy;
 	int input, n, S;
 
+	//printfs
+	printf("\n");
 	printf("Integration of Mergesort and Insertion Sort\n");
 	printf("\n");
 	printf("===\n");
 	printf("\n");
-	//n number of elements
-	printf("n:\t\t\t\t\t");
+	//n (number of elements)
+	printf("    n:\t\t\t\t\t");
 	scanf("%d", &n);
-	//S
-	printf("S (threshold for sub-array's size):\t");
+	//printf("10\n"); n = 10;
+	//S (threshold for the size of sub-arrays)
+	printf("    S (threshold for sub-array's size):\t");
 	scanf("%d", &S);
-
-	//generate random Elements
-	randomElements = malloc(n * sizeof(Element)); for (int x = 0; x < n; x++) { randomElements[x] = rand(); }
-	//duplicate random Elements for sorting
-	randomElements_Copy = malloc(n * sizeof(Element));
-
-	if (n < 512) {
-		printf("\n");
-		printf("Elements = \n{");
-		for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements[x]); if ((x + 1) % 9 == 0) { printf("\n"); } }
-		printf("%d", randomElements[n - 1]);
-		printf("}\n");
-	}
+	//printf("1\n"); S = 1;
 	printf("\n");
+
+	//generate n number of random Elements and duplicate it for sorting
+	randomElements = malloc(n * sizeof(Element)); for (int x = 0; x < n; x++) { randomElements[x] = rand(); }
+	//randomElements_Copy = malloc(n * sizeof(Element)); for (int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }; //memcpy(randomElements_Copy, &randomElements[0], n * sizeof(Element));
+	randomElements_Copy = malloc(n * sizeof(Element)); memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
+	//if n within threshold, print entire array
+	if (n < 512) {
+		printf("Elements = \n{"); for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements[x]); if ((x + 1) % 9 == 0) { printf("\n"); } } printf("%d}\n", randomElements[n - 1]); printf("\n");
+	}
+
 	printf("===\n");
 
 	printf("\n");
-
-	///Original Merge Sort
-	printf("------ Original Merge Sort ------\n");
+	printf("======\n");
 	printf("\n");
 
-	//reset random Elements for sorting
+	///Original Merge Sort
+	printf("--------- Original Merge Sort ---------\n");
+	printf("\n");
+	comparison = 0;
+
+	//reset random Elements to original values
 	printf("Resetting elements ...… ");
-	for (int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }
+	memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element)); //for (int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; };
 	printf("Done.\n");
 	printf("\n");
 
 	printf("MergeSort(): \n");
-	comparison = 0;
-	CPU_start = clock();
+	QueryPerformanceCounter(&performanceCounter_start);
 	mergeSort(randomElements_Copy, 0, n - 1);
-	CPU_end = clock();
+	QueryPerformanceCounter(&performanceCounter_end);
+	//CPU_time = (double) ((double) (performance_end.QuadPart - performance_start.QuadPart) / (double) CPU_frequency.QuadPart) * 1000);
 	if (n < 512) {
-		printf("\n");
-		printf("Elements = \n{");
-		for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } }
-		printf("%d", randomElements_Copy[n - 1]);
-		printf("}\n");
+		printf("Elements = \n{"); for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } } printf("%d}\n", randomElements_Copy[n - 1]); printf("\n");
 	}
 	printf("\n");
 	printf("Numbers of key comparison(s): %d\n", comparison);
-	printf("Time taken: %d miliseconds\n", (int)(((double)(CPU_end - CPU_start) / CLOCKS_PER_SEC) * 1000));
+	printf("Time taken: %lf miliseconds\n", (double) ((double) (performanceCounter_end.QuadPart - performanceCounter_start.QuadPart) / (double) CPU_frequency.QuadPart) * 1000);
+	
 	printf("\n");
-	///Original Merge Sort
-	printf("---\n");
-
 	printf("\n");
 
 	///Modifed Merge Sort
-	printf("------ Modifed Merge Sort ------\n");
+	printf("--------- Modified Merge Sort ---------\n");
 	printf("\n");
+	comparison = 0;
 
-	//reset random Elements for sorting
+	//reset random Elements to original values
 	printf("Resetting elements ...… ");
-	for (int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }
+	memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
 	printf("Done.\n");
 	printf("\n");
 
 	printf("ModifiedMergeSort(): \n");
-	comparison = 0;
-	CPU_start = clock();
+	QueryPerformanceCounter(&performanceCounter_start);
 	modifiedMergeSort(randomElements_Copy, 0, n - 1, S);
-	CPU_end = clock();
+	QueryPerformanceCounter(&performanceCounter_end);
 	if (n < 512) {
-		printf("\n");
-		printf("Elements = \n{");
-		for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } }
-		printf("%d", randomElements_Copy[n - 1]);
-		printf("}\n");
+		printf("Elements = \n{"); for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } } printf("%d}\n", randomElements_Copy[n - 1]); printf("\n");
 	}
 	printf("\n");
 	printf("Numbers of key comparison(s): %d\n", comparison);
-	printf("Time taken: %d miliseconds\n", (int)(((double)(CPU_end - CPU_start) / CLOCKS_PER_SEC) * 1000));
-	printf("\n");
-	///Modifed Merge Sort
-	printf("---\n");
+	printf("Time taken: %lf miliseconds\n", (double)((double)(performanceCounter_end.QuadPart - performanceCounter_start.QuadPart) / (double)CPU_frequency.QuadPart) * 1000);
 
+	printf("\n");
 	printf("\n");
 
 	///Insertion Sort
-	printf("------ Insetrtion Sort ------\n");
+	printf("--------- Insertion Sort ---------\n");
 	printf("\n");
+	comparison = 0;
 
-	//reset random Elements for sorting
+	//reset random Elements to original values
 	printf("Resetting elements ...… ");
-	for (int x = 0; x < n; x++) { randomElements_Copy[x] = randomElements[x]; }
+	memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
 	printf("Done.\n");
 	printf("\n");
 
 	printf("InsertionSort(): \n");
-	comparison = 0;
-	CPU_start = clock();
+	QueryPerformanceCounter(&performanceCounter_start);
 	insertionSort(randomElements_Copy, 0, n - 1);
-	CPU_end = clock();
+	QueryPerformanceCounter(&performanceCounter_end);
 	if (n < 512) {
-		printf("\n");
-		printf("Elements = \n{");
-		for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } }
-		printf("%d", randomElements_Copy[n - 1]);
-		printf("}\n");
+		printf("Elements = \n{"); for (int x = 0; x < n - 1; x++) { printf("%d,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } } printf("%d}\n", randomElements_Copy[n - 1]); printf("\n");
 	}
 	printf("\n");
 	printf("Numbers of key comparison(s): %d\n", comparison);
-	printf("Time taken: %d miliseconds\n", (int)(((double)(CPU_end - CPU_start) / CLOCKS_PER_SEC) * 1000));
-	printf("\n");
-	///Insertion Sort
-	printf("===\n");
+	printf("Time taken: %lf miliseconds\n", (double)((double)(performanceCounter_end.QuadPart - performanceCounter_start.QuadPart) / (double)CPU_frequency.QuadPart) * 1000);
 
 	printf("\n");
+	printf("\n");
 
+	///END
+	printf("\\\END///");
+	printf("\n");
+
+	//free(randomElements_Copy);
 	free(randomElements);
-	free(randomElements_Copy);
+	//free(randomElements_Copy);
 
 	scanf("%s", &input);
 }
 
 void mergeSort(Element E[], int first, int last) {
-	int mid = (first + last) / 2;
 	if ((last - first) < 1) { return; }
-	else {
-		mergeSort(E, first, mid);
-		mergeSort(E, mid + 1, last);
-		merge(E, first, mid, last);
-	}
+	int mid = (first + last) / 2;
+	mergeSort(E, first, mid);
+	mergeSort(E, mid + 1, last);
+	merge(E, first, mid, last);
 }
 /*void inPlaceMergeSort(Element E[], int first, int last) {
 	if (last - first > 0) {
@@ -186,27 +177,25 @@ void modifiedMergeSort(Element E[], int first, int last, int S) {
 void merge(Element E[], int first, int mid, int last) {
 	//Original version of Mergesort
 	if ((last - first) < 1) { return; }
-
-	Queue f, g;
-	f.ll.head = NULL; f.ll.tail = NULL; f.ll.size = 0;
-	g.ll.head = NULL; g.ll.tail = NULL; g.ll.size = 0;
-	for (int x = first; x <= mid; x++) { enqueue(&f, E[x]); }
-	for (int x = mid + 1; x <= last; x++) { enqueue(&g, E[x]); }
+	Element *left, *right;
+	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element)); //for (int x = 0; x < (mid - first + 1); x++) { left[x] = E[x]; }
+	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
 
 	Element /*left, right, */temp;
-	int compare, index = first/*, indexLeft = first, indexRight = mid + 1, */;
-	while (!(isEmptyQueue(&f) || isEmptyQueue(&g))) {
-		/*left = peak(&f);
-		right = peak(&g);*/
-		compare = peak(&g) - peak(&f);
+	int compare, index = first, indexLeft = 0, indexRight = 0;
+	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
+		/*left = left[indexLeft];
+		right = right[indexRight];*/
+		compare = right[indexRight] - left[indexLeft];
 		///debug
 		comparison++;
-		if (compare > 0) { E[index++] = dequeue(&f); } //left < right
-		else if (compare < 0) { E[index++] = dequeue(&g);} //left > right
-		else { E[index++] = dequeue(&f); E[index++] = dequeue(&g); } //right = left
+		if (compare > 0) { E[index++] = left[indexLeft++]; } //left < right
+		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
+		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
 	}
-	while (!isEmptyQueue(&f)) { E[index++] = dequeue(&f); }
-	while (!isEmptyQueue(&g)) { E[index++] = dequeue(&g); }
+	if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
+	if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
+	//free(left); free(right);
 }
 /*void inPlaceMerge(Element E[], int first, int mid, int last) {
 	//int mid = (first + last) / 2;
@@ -245,34 +234,26 @@ void merge(Element E[], int first, int mid, int last) {
 }*/
 void modifiedMerge(Element E[], int first, int mid, int last) {
 	//Modifed Mergesort
-	//int mid = (first + last) / 2;
-	int a = first, b = mid + 1, compare, i, temp;
 	if ((last - first) < 1) { return; }
+	Element *left, *right;
+	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element)); //for (int x = 0; x < (mid - first + 1); x++) { left[x] = E[x]; }
+	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
 
-	while (a <= mid && b <= last) {
-		compare = E[a] - E[b];
-		///comparison
+	Element /*left, right, */temp;
+	int compare, index = first, indexLeft = 0, indexRight = 0;
+	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
+		/*left = left[indexLeft];
+		right = right[indexRight];*/
+		compare = right[indexRight] - left[indexLeft];
+		///debug
 		comparison++;
-		if (compare > 0) {
-			temp = E[b++];
-			for (i = ++mid; i > a; i--) {
-				E[i] = E[i - 1];
-			}
-			E[a++] = temp;
-		}
-		else if (compare < 0) {
-			a++;
-		}
-		else {
-			if (a == mid && b == last) { break;	}
-			temp = E[b++];
-			a++;
-			for (i = ++mid; i > a; i--) {
-				E[i] = E[i - 1];
-			}
-			E[a++] = temp;
-		}
+		if (compare > 0) { E[index++] = left[indexLeft++]; } //left < right
+		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
+		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
 	}
+	if (indexLeft < (mid - first + 1)) { memcpy(&E[index], &left[indexLeft], ((mid - first + 1) - indexLeft) * sizeof(Element)); }
+	if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
+	//free(left); free(right);
 }
 void insertionSort(Element E[], int first, int last) {
 	if ((last - first) < 1) { return; }
