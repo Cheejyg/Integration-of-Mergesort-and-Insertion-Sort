@@ -3,9 +3,9 @@
 
 #include "Sort.h"
 
-void mergeSort(Element E[], int first, int last) {
+void mergeSort(Element E[], long long int first, long long int last) {
 	if ((last - first) < 1) { return; }
-	int mid = (first + last) / 2;
+	long long int mid = (first + last) / 2;
 	mergeSort(E, first, mid);
 	mergeSort(E, mid + 1, last);
 	merge(E, first, mid, last);
@@ -20,14 +20,14 @@ void insertionSort(Element E[], int first, int last) {
 	}
 }
 
-void merge(Element E[], int first, int mid, int last) {
+void merge(Element E[], long long int first, long long int mid, long long int last) {
 	if ((last - first) < 1) { return; }
 	Element *left, *right;
 	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element));
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element));
 
-	Element temp;
-	int compare, index = first, indexLeft = 0, indexRight = 0;
+	//Element temp;
+	long long int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		compare = right[indexRight] - left[indexLeft];
 		if (compare > 0) { E[index++] = left[indexLeft++]; } //left < right
