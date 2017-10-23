@@ -10,10 +10,10 @@ void mergeSort(Element E[], long long int first, long long int last) {
 	mergeSort(E, mid + 1, last);
 	merge(E, first, mid, last);
 }
-void insertionSort(Element E[], int first, int last) {
+void insertionSort(Element E[], long long int first, long long int last) {
 	if ((last - first) < 1) { return; }
-	for (int i = (first + 1); i <= last; i++) {
-		for (int j = i; j > first; j--) {
+	for (long long int i = (first + 1); i <= last; i++) {
+		for (long long int j = i; j > first; j--) {
 			if (E[j] < E[j - 1]) { swap(&E[j], &E[j - 1]); }
 			else { break; }
 		}

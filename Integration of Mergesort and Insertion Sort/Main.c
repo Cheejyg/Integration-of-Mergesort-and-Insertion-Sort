@@ -183,7 +183,7 @@ void mergeSort(Element E[], long long int first, long long int last) {
 		insertionSort(E, first, last);
 	}
 }*/
-void modifiedMergeSort(Element E[], int first, int last, int S) {
+void modifiedMergeSort(Element E[], long long int first, long long int last, long long int S) {
 	if (last - first > S) {
 		int mid = (first + last) / 2;
 		modifiedMergeSort(E, first, mid, S);
@@ -252,7 +252,7 @@ void merge(Element E[], long long int first, long long int mid, long long int la
 		}
 	}
 }*/
-void modifiedMerge(Element E[], int first, int mid, int last) {
+void modifiedMerge(Element E[], long long int first, long long int mid, long long int last) {
 	//Modifed Mergesort
 	if ((last - first) < 1) { return; }
 	Element *left, *right;
@@ -275,10 +275,10 @@ void modifiedMerge(Element E[], int first, int mid, int last) {
 	while (indexRight < (last - mid)) { E[index++] = right[indexRight++]; }
 	//free(left); free(right);
 }
-void insertionSort(Element E[], int first, int last) {
+void insertionSort(Element E[], long long int first, long long int last) {
 	if ((last - first) < 1) { return; }
-	for (int i = (first + 1); i <= last; i++) {
-		for (int j = i; j > first; j--) {
+	for (long long int i = (first + 1); i <= last; i++) {
+		for (long long int j = i; j > first; j--) {
 			///comparison
 			comparison++;
 			if (E[j] < E[j - 1]) { swap(&E[j], &E[j - 1]); }
