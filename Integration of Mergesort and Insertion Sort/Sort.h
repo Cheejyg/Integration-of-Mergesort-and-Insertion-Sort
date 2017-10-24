@@ -2,11 +2,11 @@
 
 typedef int Element;
 
-void mergeSort(Element E[], int first, int last);
-void inPlaceMergeSort(Element E[], int first, int last);
-void insertionSort(Element E[], int first, int last);
+void mergeSort(Element E[], long long int first, long long int last);
+void inPlaceMergeSort(Element E[], long long int first, long long int last);
+void insertionSort(Element E[], long long int first, long long int last);
 
-void merge(Element E[], int first, int mid, int last);
-void inPlaceMerge(Element E[], int first, int mid, int last);
-void insertionSort(Element E[], int first, int last);
+void merge(Element E[], long long int first, long long int mid, long long int last);
+void inPlaceMerge(Element E[], long long int first, long long int mid, long long int last);
+void insertionSort(Element E[], long long int first, long long int last);
 void swap(Element i[], Element j[]);

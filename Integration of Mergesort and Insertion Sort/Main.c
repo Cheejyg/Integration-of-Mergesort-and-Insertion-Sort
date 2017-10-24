@@ -6,15 +6,15 @@
 
 typedef long long int Element;
 
-void mergeSort(Element E[], int first, int last);
-void inPlaceMergeSort(Element E[], int first, int last);
-void modifiedMergeSort(Element E[], int first, int last, int S);
-void insertionSort(Element E[], int first, int last);
+void mergeSort(Element E[], long long int first, long long int last);
+void inPlaceMergeSort(Element E[], long long int first, long long int last);
+void modifiedMergeSort(Element E[], long long int first, long long int last, long long int S);
+void insertionSort(Element E[], long long int first, long long int last);
 
-void merge(Element E[], int first, int mid, int last);
-void inPlaceMerge(Element E[], int first, int mid, int last);
-void modifiedMerge(Element E[], int first, int mid, int last);
-void insertionSort(Element E[], int first, int last);
+void merge(Element E[], long long int first, long long int mid, long long int last);
+void inPlaceMerge(Element E[], long long int first, long long int mid, long long int last);
+void modifiedMerge(Element E[], long long int first, long long int mid, long long int last);
+void insertionSort(Element E[], long long int first, long long int last);
 void swap(Element i[], Element j[]);
 
 //global
@@ -120,6 +120,38 @@ void main() {
 
 	printf("\n");
 
+	///In-Place Merge Sort///
+	printf("--------- In-Place Merge Sort ---------\n");
+	printf("\n");
+
+	//reset Element_Copy[] to original Element[]
+	printf("Resetting elements ...… ");
+	memcpy(&randomElements_Copy[0], &randomElements[0], n * sizeof(Element));
+	printf("Done.\n");
+	printf("\n");
+
+	//reset comparison counter
+	comparison = 0;
+
+	printf("InPlaceMergeSort(): \n");
+	if (0) {
+		printf("\n");
+		printf("Warning: This may take a long time to complete.\nAre you sure you want to continue?\nPress any key to continue or Ctrl + C to break . . .\n", (n * n));
+		scanf("%c", &input); scanf("%c", &input);
+	}
+	//inPlaceMergeSort()
+	QueryPerformanceCounter(&performanceCounter_start);
+	inPlaceMergeSort(randomElements_Copy, 0, (n - 1));
+	QueryPerformanceCounter(&performanceCounter_end);
+	if (n < 512) {
+		printf("Elements = \n{"); for (int x = 0; x < n - 1; x++) { printf("%lld,\t ", randomElements_Copy[x]); if ((x + 1) % 9 == 0) { printf("\n"); } } printf("%lld}\n", randomElements_Copy[n - 1]); printf("\n");
+	}
+	printf("\n");
+	printf("\tNumbers of key comparison(s): \t%lld\n", comparison);
+	printf("\tTime taken: \t\t\t%lf miliseconds\n", (double)((double)(performanceCounter_end.QuadPart - performanceCounter_start.QuadPart) / (double)CPU_frequency.QuadPart) * 1000);
+
+	printf("\n");
+
 	///Insertion Sort///
 	printf("--------- Insertion Sort ---------\n");
 	printf("\n");
@@ -172,17 +204,13 @@ void mergeSort(Element E[], long long int first, long long int last) {
 	mergeSort(E, mid + 1, last);
 	merge(E, first, mid, last);
 }
-/*void inPlaceMergeSort(Element E[], int first, int last) {
-	if (last - first > 0) {
-		int mid = (first + last) / 2;
-		inPlaceMergeSort(E, first, mid);
-		inPlaceMergeSort(E, mid + 1, last);
-		inPlaceMerge(E, first, mid, last);
-	}
-	else {
-		insertionSort(E, first, last);
-	}
-}*/
+void inPlaceMergeSort(Element E[], long long int first, long long int last) {
+	if ((last - first) < 1) { return; }
+	long long int mid = (first + last) / 2;
+	inPlaceMergeSort(E, first, mid);
+	inPlaceMergeSort(E, mid + 1, last);
+	inPlaceMerge(E, first, mid, last);
+}
 void modifiedMergeSort(Element E[], long long int first, long long int last, long long int S) {
 	if (last - first > S) {
 		int mid = (first + last) / 2;
@@ -200,8 +228,7 @@ void merge(Element E[], long long int first, long long int mid, long long int la
 	Element *left, *right;
 	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element)); //for (long long int x = 0; x < (mid - first + 1); x++) { left[x] = E[x]; }
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element)); //for (long long int x = 0; x < (last - mid); x++) { right[x] = E[(mid + 1) + x]; }
-	
-	/*Element left, right, temp;*/
+
 	long long int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		/*left = left[indexLeft];
@@ -211,7 +238,7 @@ void merge(Element E[], long long int first, long long int mid, long long int la
 		comparison++;
 		if (compare > 0) { E[index++] = left[indexLeft++]; } //left < right
 		else if (compare < 0) { E[index++] = right[indexRight++]; } //left > right
-		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //right = left
+		else { E[index++] = left[indexLeft++]; E[index++] = right[indexRight++]; } //left = right
 	}
 	while (indexLeft < (mid - first + 1)) { E[index++] = left[indexLeft++]; }
 	while (indexRight < (last - mid)) { E[index++] = right[indexRight++]; }
@@ -219,39 +246,34 @@ void merge(Element E[], long long int first, long long int mid, long long int la
 	//if (indexRight < (last - mid)) { memcpy(&E[index], &left[indexRight], ((last - mid) - indexRight) * sizeof(Element)); }
 	//free(left); free(right);
 }
-/*void inPlaceMerge(Element E[], int first, int mid, int last) {
-	//int mid = (first + last) / 2;
-	int a = first, b = mid + 1, temp, compare, i;
-	if (last - first <= 0) { return; }
-	Element *f, *g;
-	f = malloc(((mid - first) + 1 + 1) * sizeof(Element));
-	g = malloc(((last - mid) + 1) * sizeof(Element));
-	memcpy(f, &E[first], (mid - first + 1) * sizeof(Element));
-	memcpy(g, &E[mid + 1], (last - mid) * sizeof(Element));
-	f[(mid - first) + 1] = -1;
-	g[(last - mid)] = -1;
-	while (a <= mid && b <= last) {
-		compare = E[a] - E[b];
+void inPlaceMerge(Element E[], long long int first, long long int mid, long long int last) {
+	if ((last - first) < 1) { return; }
+
+	Element temp;
+	long long int compare, indexLeft = first, indexRight = mid + 1, i;
+	while (indexLeft <= mid && indexRight <= last) {
+		compare = E[indexRight] - E[indexLeft];
+		///debug
 		comparison++;
-		if (compare > 0) {
-			temp = E[b++];
-			for (i = ++mid; i > a; i--) {
+		if (compare > 0) { indexLeft++; } //left < right
+		else if (compare < 0) {
+			//left > right
+			temp = E[indexRight++];
+			for (i = ++mid; i > indexLeft; i--) {
 				E[i] = E[i - 1];
 			}
-			E[a++] = temp;
-		}
-		else if (compare < 0) {
-			a++;
+			E[indexLeft++] = temp;
 		}
 		else {
-			if (a == mid&&b == last) { break; }
-			temp = E[b++];
-			a++;
-			for (i = ++mid; i > a; i--) { E[i] = E[i - 1]; }
-			E[a++] = temp;
+			//left = right
+			if (indexLeft == mid && indexRight == last) { break; }
+			temp = E[indexRight++];
+			indexLeft++;
+			for (i = ++mid; i > indexLeft; i--) { E[i] = E[i - 1]; }
+			E[indexLeft++] = temp;
 		}
 	}
-}*/
+}
 void modifiedMerge(Element E[], long long int first, long long int mid, long long int last) {
 	//Modifed Mergesort
 	if ((last - first) < 1) { return; }
