@@ -42,7 +42,7 @@ performance of the modified algorithm.
 
 - - -
 
-# Integration-of-Mergesort-and-Insertion-Sort\Sort.c
+# [Sort.c](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort/blob/master/Integration%20of%20Mergesort%20and%20Insertion%20Sort/Sort.c)
 
 Sorting library for C.
 
