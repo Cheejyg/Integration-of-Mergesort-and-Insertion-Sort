@@ -104,5 +104,5 @@ swap(Element i[], Element j[]);
 ```
 Parameter | Description 
 ----------|-------------
-i[] | Element to be swapped.
-j[] | Element to be swapped.
+i[] | Element to be swapped with j.
+j[] | Element to be swapped with i.
