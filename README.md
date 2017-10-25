@@ -39,3 +39,70 @@ program on the data sets. Describe how running times increases with input
 sizes when running the two versions of Mergesort algorithm.
 3. Carry out experiments to study how the different values of **S** will affect the
 performance of the modified algorithm.
+
+- - -
+
+# Integration-of-Mergesort-and-Insertion-Sort\Sort.c
+
+Sorting library for C.
+
+```
+#include "Sort.c"
+```
+
+Includes: 
+* Mersertion sort (Integration of Mergesort and Insertion sort)
+* Merge sort
+* In-place merge sort
+* Insertion sort
+	* Swap
+
+## Mersertion sort
+```
+mersertionSort(Element E[], long long int first, long long int last, long long int S);
+```
+Parameter | Description 
+----------|-------------
+E[] | Array to be sorted.
+first | First index of the array to start sorting.
+last | Last index of the array to stop sorting.
+S | Threshold for the size of sub-arrays to switch to insertion sort.
+
+## Merge sort
+```
+mergeSort(Element E[], long long int first, long long int last);
+```
+Parameter | Description 
+----------|-------------
+E[] | Array to be sorted.
+first | First index of the array to start sorting.
+last | Last index of the array to stop sorting.
+
+## In-place merge sort
+```
+inPlaceMergeSort(Element E[], long long int first, long long int last);
+```
+Parameter | Description 
+----------|-------------
+E[] | Array to be sorted.
+first | First index of the array to start sorting.
+last | Last index of the array to stop sorting.
+
+## Insertion sort
+```
+insertionSort(Element E[], long long int first, long long int last);
+```
+Parameter | Description 
+----------|-------------
+E[] | Array to be sorted.
+first | First index of the array to start sorting.
+last | Last index of the array to stop sorting.
+
+### Swap
+```
+swap(Element i[], Element j[]);
+```
+Parameter | Description 
+----------|-------------
+i[] | Element to be swapped.
+j[] | Element to be swapped.
