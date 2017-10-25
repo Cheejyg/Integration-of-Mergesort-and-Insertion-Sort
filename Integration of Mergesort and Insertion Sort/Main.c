@@ -137,8 +137,8 @@ void main() {
 	printf("InPlaceMergeSort(): \n");
 	if (n > 100000) {
 		printf("\n");
-		printf("Warning: This may take a long time to complete.\nAre you sure you want to continue?\nPress any key to continue or Ctrl + C to break . . .\n", (n * n));
-		scanf("%c", &input); scanf("%c", &input);
+		printf("Warning: This may take a long time to complete.\nAre you sure you want to continue?\nPress enter key to continue or [Ctrl + C] to break . . .\n", (n * n));
+		scanf("%c", &input);
 	}
 	//inPlaceMergeSort()
 	QueryPerformanceCounter(&performanceCounter_start);
