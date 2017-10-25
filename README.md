@@ -51,11 +51,11 @@ Sorting library for C.
 ```
 
 Includes: 
-* Mersertion sort (Integration of Mergesort and Insertion sort)
-* Merge sort
-* In-place merge sort
-* Insertion sort
-	* Swap
+* [Mersertion sort](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#mersertion-sort) (Integration of Mergesort and Insertion sort)
+* [Merge sort](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#merge-sort)
+* [In-place merge sort](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#in-place-merge-sort)
+* [Insertion sort](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#insertion-sort)
+	* [Swap](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#swap)
 
 ## Mersertion sort
 ```
