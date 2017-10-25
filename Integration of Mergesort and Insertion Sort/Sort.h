@@ -2,6 +2,7 @@
 
 typedef int Element;
 
+void mersertionSort(Element E[], long long int first, long long int last, long long int S);
 void mergeSort(Element E[], long long int first, long long int last);
 void inPlaceMergeSort(Element E[], long long int first, long long int last);
 void insertionSort(Element E[], long long int first, long long int last);

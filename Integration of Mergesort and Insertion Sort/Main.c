@@ -40,6 +40,7 @@ void main() {
 	//n (number of elements)
 	printf("    n:\t\t\t\t\t");
 	scanf("%lld", &n); scanf("%c", &input);
+	//printf("10000\n"); n = 10000;
 	//S (threshold for the size of sub-arrays)
 	printf("    S (threshold for sub-array's size):\t");
 	scanf("%lld", &S); scanf("%c", &input);
@@ -134,7 +135,7 @@ void main() {
 	comparison = 0;
 
 	printf("InPlaceMergeSort(): \n");
-	if (0) {
+	if (n > 100000) {
 		printf("\n");
 		printf("Warning: This may take a long time to complete.\nAre you sure you want to continue?\nPress any key to continue or Ctrl + C to break . . .\n", (n * n));
 		scanf("%c", &input); scanf("%c", &input);

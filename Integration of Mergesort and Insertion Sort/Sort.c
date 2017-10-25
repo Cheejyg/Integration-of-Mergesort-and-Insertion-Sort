@@ -3,6 +3,17 @@
 
 #include "Sort.h"
 
+void mersertionSort(Element E[], long long int first, long long int last, long long int S) {
+	if (last - first > S) {
+		int mid = (first + last) / 2;
+		mersertionSort(E, first, mid, S);
+		mersertionSort(E, mid + 1, last, S);
+		merge(E, first, mid, last);
+	}
+	else {
+		insertionSort(E, first, last);
+	}
+}
 void mergeSort(Element E[], long long int first, long long int last) {
 	if ((last - first) < 1) { return; }
 	long long int mid = (first + last) / 2;
@@ -33,7 +44,6 @@ void merge(Element E[], long long int first, long long int mid, long long int la
 	left = malloc((mid - first + 1) * sizeof(Element)); memcpy(&left[0], &E[first], (mid - first + 1) * sizeof(Element));
 	right = malloc((last - mid) * sizeof(Element)); memcpy(&right[0], &E[mid + 1], (last - mid) * sizeof(Element));
 
-	//Element temp;
 	long long int compare, index = first, indexLeft = 0, indexRight = 0;
 	while (indexLeft < (mid - first + 1) && indexRight < (last - mid)) {
 		compare = right[indexRight] - left[indexLeft];
@@ -69,6 +79,7 @@ void inPlaceMerge(Element E[], long long int first, long long int mid, long long
 		}
 	}
 }
+
 void swap(Element i[], Element j[]) {
 	Element k = *i;
 	*i = *j;
