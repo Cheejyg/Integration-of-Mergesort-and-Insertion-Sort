@@ -66,48 +66,71 @@ Includes:
 ```
 mersertionSort(Element E[], long long int first, long long int last, long long int S);
 ```
+```
+mersertionSortDebug(Element E[], long long int first, long long int last, long long int S, long long int comparisons[], long long int swaps[]);
+```
 Parameter | Description 
 ----------|-------------
 E[] | Array to be sorted.
 first | First index of the array to start sorting.
 last | Last index of the array to stop sorting.
 S | Threshold for the size of sub-arrays to switch to insertion sort.
+comparisons[] | Pointer to comparison counter.
+swaps[] | Pointer to swap counter.
 
 ## Merge sort
 ```
 mergeSort(Element E[], long long int first, long long int last);
 ```
+```
+mergeSortDebug(Element E[], long long int first, long long int last, long long int comparisons[]);
+```
 Parameter | Description 
 ----------|-------------
 E[] | Array to be sorted.
 first | First index of the array to start sorting.
 last | Last index of the array to stop sorting.
+comparisons[] | Pointer to comparison counter.
 
 ## In-place merge sort
 ```
 inPlaceMergeSort(Element E[], long long int first, long long int last);
 ```
+```
+inPlaceMergeSortDebug(Element E[], long long int first, long long int last, long long int comparisons[], long long int swaps[]);
+```
 Parameter | Description 
 ----------|-------------
 E[] | Array to be sorted.
 first | First index of the array to start sorting.
 last | Last index of the array to stop sorting.
+comparisons[] | Pointer to comparison counter.
+swaps[] | Pointer to swap counter.
 
 ## Insertion sort
 ```
 insertionSort(Element E[], long long int first, long long int last);
 ```
+```
+insertionSortDebug(Element E[], long long int first, long long int last, long long int comparisons[], long long int swaps[]);
+```
 Parameter | Description 
 ----------|-------------
 E[] | Array to be sorted.
 first | First index of the array to start sorting.
 last | Last index of the array to stop sorting.
+comparisons[] | Pointer to comparison counter.
+swaps[] | Pointer to swap counter.
 
 ### Swap
 ```
 swap(Element i[], Element j[]);
 ```
+```
+swapDebug(Element i[], Element j[], long long int swaps[]);
+```
 Parameter | Description 
 ----------|-------------
 i[] | Element to be swapped with j.
 j[] | Element to be swapped with i.
+swaps[] | Pointer to swap counter.
