@@ -46,12 +46,14 @@ performance of the modified algorithm.
 
 Sorting library for C.
 
-```
-#include "Sort.c"
-```
 Requires: 
 * [Sort.h](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort/blob/master/Integration%20of%20Mergesort%20and%20Insertion%20Sort/Sort.h)
 * [Sort.c](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort/blob/master/Integration%20of%20Mergesort%20and%20Insertion%20Sort/Sort.c)
+
+Use: 
+```
+#include "Sort.c"
+```
 
 Includes: 
 * [Mersertion sort](https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort#mersertion-sort) (Integration of Mergesort and Insertion sort)
